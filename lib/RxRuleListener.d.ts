@@ -2,7 +2,7 @@ import { Observable } from "rxjs/Observable";
 import { IObservableListener } from "./IObservableListener";
 export declare const SolidityListener: FunctionConstructor;
 /**
- *
+ * The Token interface.
  */
 export interface Token {
     source: string;
@@ -16,7 +16,7 @@ export interface Token {
     text: string;
 }
 /**
- *
+ * The context interface of the RuleContextEvent.
  */
 export interface RuleContext {
     parentCtx: RuleContext;
@@ -39,7 +39,7 @@ export interface RuleContext {
     toStringTree(): string;
 }
 /**
- *
+ * The interface of the RuleContext event.
  */
 export interface IRuleContextEvent {
     type: string;

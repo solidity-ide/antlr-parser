@@ -10,7 +10,10 @@ import { RxRuleListener, IRuleContextEvent }  from "./RxRuleListener";
 import { RxErrorListener, ISyntaxErrorEvent } from "./RxErrorListener";
 
 /**
+ * SolidityParser Class
  * 
+ * The main class for parsing Solidity code. Provides Observables that emit rule
+ * contexts and syntax errors.
  */
 export class SolidityParser {
 
@@ -18,23 +21,23 @@ export class SolidityParser {
     private errorListener = new RxErrorListener();
 
     /**
-     * 
-     * @param code 
+     * Parses Solidity code provided as a string.
+     * @param code - source code text.
      */
-    public parseText (code: string): void {
-        this.parseStream(new antlr4.InputStream(code, true));
+    public parseText (...code: string[]): void {
+        code.forEach(c => this.parseStream(new antlr4.InputStream(c, true)));
     }
 
     /**
-     * 
-     * @param path 
+     * Loads and parses Solidity code from a file.
+     * @param path - the absolute path to a file.
      */
-    public parseFile (path: string): void {
-        this.parseStream(new antlr4.FileStream(path));
+    public parseFile (...path: string[]): void {
+        path.forEach(p => this.parseStream(new antlr4.FileStream(p)));
     }
 
     /**
-     * 
+     * Consumes InputStream instances.
      * @param stream 
      */
     private parseStream (stream: any): void {
@@ -53,21 +56,21 @@ export class SolidityParser {
     }
 
     /**
-     * 
+     * Emits Rule Context events as it walks the tree of parsed Solidity code.
      */
     public Observable (): Observable<IRuleContextEvent> {
         return this.ruleListener.Observable();
     }
 
     /**
-     * 
+     * Emits any Syntax Error events from parsed Solidity code.
      */
     public ErrorObservable (): Observable<ISyntaxErrorEvent> {
         return this.errorListener.Observable();
     }
 
     /**
-     * 
+     * Cleans up the class. Basically invoking `complete()` on any Observables.
      */
     public complete (): void {
         this.ruleListener.complete();

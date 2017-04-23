@@ -46,7 +46,7 @@ export interface RuleContext {
 }
 
 /**
- * The interface of the RuleContext event.
+ * The interface of the RuleContext events emitted by the RxRuleListener class.
  */
 export interface IRuleContextEvent {
     type: string;
@@ -54,7 +54,9 @@ export interface IRuleContextEvent {
 }
 
 /**
+ * RxRuleListener Class.
  * 
+ * Listener for Rule Context events when walking the parsed tree of Solidity code.
  */
 export class RxRuleListener extends SolidityListener implements IObservableListener<IRuleContextEvent> {
 
@@ -64,13 +66,10 @@ export class RxRuleListener extends SolidityListener implements IObservableListe
         super();
         return new Proxy(this, {
             get: function (target, name) {
-                if ((name.toString().startsWith("enter") || name.toString().endsWith("exit")) && typeof (target as any)[name] === "function") {
-                    return function (ctx: any) {
-                        (target as any)[name](ctx);
-                        target.subject.next({
-                            type: name.toString(),
-                            context: ctx,
-                        });
+                if ((name.toString().startsWith("enter") || name.toString().startsWith("exit")) && typeof (target as any)[name] === "function") {
+                    return function (context: RuleContext) {
+                        (target as any)[name](context);
+                        target.subject.next({ type: name.toString(), context, });
                     }
                 } else {
                     return (target as any)[name];
@@ -80,14 +79,14 @@ export class RxRuleListener extends SolidityListener implements IObservableListe
     }
 
     /**
-     * 
+     * Emits Rule Context events as it walks the tree of parsed Solidity code.
      */
     public Observable (): Observable<IRuleContextEvent> {
         return this.subject.asObservable();
     }
     
     /**
-     * 
+     * Cleans up the class. Basically invoking `complete()` on any Observables.
      */
     public complete (): void {
         this.subject.complete();

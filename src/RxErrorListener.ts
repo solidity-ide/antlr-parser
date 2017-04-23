@@ -7,7 +7,7 @@ export const ErrorListener: FunctionConstructor = require("antlr4").error.ErrorL
 import { IObservableListener } from "./IObservableListener";
 
 /**
- * 
+ * Interface for events emitted by the RxErrorListener class.
  */
 export interface ISyntaxErrorEvent {
     line: number;
@@ -17,7 +17,9 @@ export interface ISyntaxErrorEvent {
 }
 
 /**
+ * RxErrorListener Class.
  * 
+ * Emits events for Syntax Errors from parsed Solidity code.
  */
 export class RxErrorListener extends ErrorListener implements IObservableListener<ISyntaxErrorEvent> {
 
@@ -35,14 +37,14 @@ export class RxErrorListener extends ErrorListener implements IObservableListene
     }
     
     /**
-     * 
+     * Emits any Syntax Error events from parsed Solidity code.
      */
     public Observable (): Observable<ISyntaxErrorEvent> {
         return this.subject.asObservable();
     }
     
     /**
-     * 
+     * Cleans up the class. Basically invoking `complete()` on any Observables.
      */
     public complete (): void {
         this.subject.complete();
