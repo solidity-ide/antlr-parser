@@ -39,7 +39,7 @@ parser.parseFile(...["./contract4.sol", "./contact5.sol"]);
 
 ### SolidityParser Class
 
-The main class for parsing Solidity code. Provides Observables that emit rule contexts and syntax errors.
+The main class for parsing Solidity code. Provides RX Observables that emit rule contexts and syntax errors.
 
 One `SolidityParser` instance can be used to parse multiple files. Distinguish between files with `enterSourceUnit` and `exitSourceUnit` event types.
 
