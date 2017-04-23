@@ -90,8 +90,70 @@ The definitions for these rules can be found in the grammar definition (`./bin/S
 
 Event types come in pairs: `enter*` and `exit*` events.
 
-`enterEveryRule` <=> `exitEveryRule` (Included for completeness. More helpful to filter out.)
-`enterSourceUnit` <=> `exitSourceUnit` (Marks the start and end of the document.)
+- `enterEveryRule` <=> `exitEveryRule` (Included for completeness. More helpful to filter out.)
+- `enterSourceUnit` <=> `exitSourceUnit` (Marks the start and end of the document.)
+- `enterPragmaDirective` <=> `exitPragmaDirective`
+- `enterPragmaName` <=> `exitPragmaName`
+- `enterPragmaValue` <=> `exitPragmaValue`
+- `enterVersion` <=> `exitVersion`
+- `enterVersionOperator` <=> `exitVersionOperator`
+- `enterVersionConstraint` <=> `exitVersionConstraint`
+- `enterImportDeclaration` <=> `exitImportDeclaration`
+- `enterImportDirective` <=> `exitImportDirective`
+- `enterContractDefinition` <=> `exitContractDefinition`
+- `enterInheritanceSpecifier` <=> `exitInheritanceSpecifier`
+- `enterContractPart` <=> `exitContractPart`
+- `enterStateVariableDeclaration` <=> `exitStateVariableDeclaration`
+- `enterUsingForDeclaration` <=> `exitUsingForDeclaration`
+- `enterStructDefinition` <=> `exitStructDefinition`
+- `enterModifierDefinition` <=> `exitModifierDefinition`
+- `enterFunctionDefinition` <=> `exitFunctionDefinition`
+- `enterEventDefinition` <=> `exitEventDefinition`
+- `enterEnumValue` <=> `exitEnumValue`
+- `enterEnumDefinition` <=> `exitEnumDefinition`
+- `enterIndexedParameterList` <=> `exitIndexedParameterList`
+- `enterParameterList` <=> `exitParameterList`
+- `enterTypeNameList` <=> `exitTypeNameList`
+- `enterVariableDeclaration` <=> `exitVariableDeclaration`
+- `enterTypeName` <=> `exitTypeName`
+- `enterUserDefinedTypeName` <=> `exitUserDefinedTypeName`
+- `enterMapping` <=> `exitMapping`
+- `enterFunctionTypeName` <=> `exitFunctionTypeName`
+- `enterStorageLocation` <=> `exitStorageLocation`
+- `enterBlock` <=> `exitBlock`
+- `enterStatement` <=> `exitStatement`
+- `enterExpressionStatement` <=> `exitExpressionStatement`
+- `enterIfStatement` <=> `exitIfStatement`
+- `enterWhileStatement` <=> `exitWhileStatement`
+- `enterPlaceholderStatement` <=> `exitPlaceholderStatement`
+- `enterSimpleStatement` <=> `exitSimpleStatement`
+- `enterForStatement` <=> `exitForStatement`
+- `enterInlineAssemblyStatement` <=> `exitInlineAssemblyStatement`
+- `enterDoWhileStatement` <=> `exitDoWhileStatement`
+- `enterContinueStatement` <=> `exitContinueStatement`
+- `enterBreakStatement` <=> `exitBreakStatement`
+- `enterReturnStatement` <=> `exitReturnStatement`
+- `enterThrowStatement` <=> `exitThrowStatement`
+- `enterVariableDeclarationStatement` <=> `exitVariableDeclarationStatement`
+- `enterIdentifierList` <=> `exitIdentifierList`
+- `enterElementaryTypeName` <=> `exitElementaryTypeName`
+- `enterExpression` <=> `exitExpression`
+- `enterPrimaryExpression` <=> `exitPrimaryExpression`
+- `enterExpressionList` <=> `exitExpressionList`
+- `enterNameValueList` <=> `exitNameValueList`
+- `enterFunctionCall` <=> `exitFunctionCall`
+- `enterFunctionCallArguments` <=> `exitFunctionCallArguments`
+- `enterNewExpression` <=> `exitNewExpression`
+- `enterInlineAssemblyBlock` <=> `exitInlineAssemblyBlock`
+- `enterAssemblyItem` <=> `exitAssemblyItem`
+- `enterAssemblyLocalBinding` <=> `exitAssemblyLocalBinding`
+- `enterAssemblyAssignment` <=> `exitAssemblyAssignment`
+- `enterFunctionalAssemblyExpression` <=> `exitFunctionalAssemblyExpression`
+- `enterArrayLiteral` <=> `exitArrayLiteral`
+- `enterTupleLiteral` <=> `exitTupleLiteral`
+- `enterElementaryTypeNameExpression` <=> `exitElementaryTypeNameExpression`
+- `enterNumberLiteral` <=> `exitNumberLiteral`
+
 
 ---
 

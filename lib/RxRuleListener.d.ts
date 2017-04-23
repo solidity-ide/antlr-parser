@@ -39,24 +39,26 @@ export interface RuleContext {
     toStringTree(): string;
 }
 /**
- * The interface of the RuleContext event.
+ * The interface of the RuleContext events emitted by the RxRuleListener class.
  */
 export interface IRuleContextEvent {
     type: string;
     context: RuleContext;
 }
 /**
+ * RxRuleListener Class.
  *
+ * Listener for Rule Context events when walking the parsed tree of Solidity code.
  */
 export declare class RxRuleListener extends SolidityListener implements IObservableListener<IRuleContextEvent> {
     private subject;
     constructor();
     /**
-     *
+     * Emits Rule Context events as it walks the tree of parsed Solidity code.
      */
     Observable(): Observable<IRuleContextEvent>;
     /**
-     *
+     * Cleans up the class. Basically invoking `complete()` on any Observables.
      */
     complete(): void;
 }
