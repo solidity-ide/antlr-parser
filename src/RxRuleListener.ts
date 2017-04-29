@@ -1,6 +1,6 @@
 
-import { Subject }    from "rxjs/Subject";
 import { Observable } from "rxjs/Observable";
+import { Subject }    from "rxjs/Subject";
 
 import { IObservableListener } from "./IObservableListener";
 
@@ -10,15 +10,15 @@ export const SolidityListener: FunctionConstructor = require("../parser/Solidity
  * The Token interface.
  */
 export interface Token {
-	source: string;
-	type: number;       // token type of the token
-	channel: number;    // The parser ignores everything not on DEFAULT_CHANNEL
-	start: number;      // optional; return -1 if not implemented.
-	stop: number;       // optional; return -1 if not implemented.
-	tokenIndex: number; // from 0..n-1 of the token object in the input stream
-	line: number;       // line=1..n of the 1st character
-	column: number;     // beginning of the line at which it occurs, 0..n-1
-	text: string;       // text of the token.
+    source: string;
+    type: number;       // token type of the token
+    channel: number;    // The parser ignores everything not on DEFAULT_CHANNEL
+    start: number;      // optional; return -1 if not implemented.
+    stop: number;       // optional; return -1 if not implemented.
+    tokenIndex: number; // from 0..n-1 of the token object in the input stream
+    line: number;       // line=1..n of the 1st character
+    column: number;     // beginning of the line at which it occurs, 0..n-1
+    text: string;       // text of the token.
 }
 
 /**
@@ -69,12 +69,12 @@ export class RxRuleListener extends SolidityListener implements IObservableListe
                 if ((name.toString().startsWith("enter") || name.toString().startsWith("exit")) && typeof (target as any)[name] === "function") {
                     return function (context: RuleContext) {
                         (target as any)[name](context);
-                        target.subject.next({ type: name.toString(), context, });
-                    }
+                        target.subject.next({ type: name.toString(), context });
+                    };
                 } else {
                     return (target as any)[name];
                 }
-            }
+            },
         });
     }
 

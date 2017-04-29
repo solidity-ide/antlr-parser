@@ -1,6 +1,6 @@
 {
-  "name": "antlr-parser",
-  "version": "1.0.0",
+  "name": "@solidity-ide/antlr-parser",
+  "version": "1.0.1",
   "description": "Ethereum Solidity language parser via ANTLR4.",
   "keywords": [
     "solidity", "ethereum", "parser", "ANTLR4", "ide"
@@ -15,7 +15,7 @@
   "license": "GPL-3.0",
   "dependencies": {
     "antlr4": "4.7.0",
-    "rxjs": "^5.3.0"
+    "rxjs": "5.3.0"
   },
   "devDependencies": {
     "@types/node": "^7.0.13",
@@ -26,11 +26,11 @@
     "url": "https://github.com/solidity-ide/antlr-parser/issues"
   },
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/solidity-ide/antlr-parser.git"
+    "type": "git",
+    "url": "https://github.com/solidity-ide/antlr-parser.git"
   },
   "author": {
     "name": "Patrick Martin",
-    "url": "github.com/patrimart"
+    "url": "https://github.com/patrimart"
   }
 }

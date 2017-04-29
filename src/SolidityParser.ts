@@ -6,8 +6,9 @@ const Lexer = require("../parser/SolidityLexer").SolidityLexer;
 const Parser = require("../parser/SolidityParser").SolidityParser;
 
 import { IObservableListener }                from "./IObservableListener";
-import { RxRuleListener, IRuleContextEvent }  from "./RxRuleListener";
-import { RxErrorListener, ISyntaxErrorEvent } from "./RxErrorListener";
+import { ISyntaxErrorEvent, RxErrorListener } from "./RxErrorListener";
+import { IRuleContextEvent, RxRuleListener }  from "./RxRuleListener";
+
 
 /**
  * SolidityParser Class
@@ -19,6 +20,14 @@ export class SolidityParser {
 
     private ruleListener = new RxRuleListener();
     private errorListener = new RxErrorListener();
+
+    private isComplete = false;
+
+    /**
+     * Initializes a SolidityParser instance.
+     * @param {boolean} [fireComplete=false] - If true, the Observables will complete after the first parsing.
+     */
+    public constructor (private fireComplete = false) {}
 
     /**
      * Parses Solidity code provided as a string.
@@ -34,25 +43,6 @@ export class SolidityParser {
      */
     public parseFile (...path: string[]): void {
         path.forEach(p => this.parseStream(new antlr4.FileStream(p)));
-    }
-
-    /**
-     * Consumes InputStream instances.
-     * @param stream 
-     */
-    private parseStream (stream: any): void {
-
-        const lexer = new Lexer(stream);
-        const tokens = new antlr4.CommonTokenStream(lexer);
-        const parser = new Parser(tokens);
-        parser.buildParseTrees = true;
-
-        parser.removeErrorListeners();
-        parser.addErrorListener(this.errorListener);
-
-        const tree = parser.sourceUnit();
-        antlr4.tree.ParseTreeWalker.DEFAULT.walk(this.ruleListener, tree);
-        parser.removeErrorListeners();
     }
 
     /**
@@ -75,5 +65,33 @@ export class SolidityParser {
     public complete (): void {
         this.ruleListener.complete();
         this.errorListener.complete();
+        this.isComplete = true;
+    }
+
+    /**
+     * Consumes InputStream instances.
+     * @param stream - InputStream to consume.
+     */
+    private parseStream (stream: any): void {
+
+        if (this.isComplete) {
+            throw new EvalError("The Observable has been completed.");
+        }
+
+        const lexer = new Lexer(stream);
+        const tokens = new antlr4.CommonTokenStream(lexer);
+        const parser = new Parser(tokens);
+        parser.buildParseTrees = true;
+
+        parser.removeErrorListeners();
+        parser.addErrorListener(this.errorListener);
+
+        const tree = parser.sourceUnit();
+        antlr4.tree.ParseTreeWalker.DEFAULT.walk(this.ruleListener, tree);
+        parser.removeErrorListeners();
+
+        if (this.fireComplete) {
+            this.complete();
+        }
     }
 }
